@@ -1,0 +1,15 @@
+gym
+pyrealsense2
+pymodbus==2.5.3
+opencv-python
+pyquaternion
+pyspacemouse
+hidapi
+pyyaml
+rospkg
+scipy
+requests
+flask
+defusedxml
+absl-py==1.4.0
+pynput
