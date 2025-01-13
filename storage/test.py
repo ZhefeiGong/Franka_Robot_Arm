@@ -22,7 +22,7 @@ def main(_):
             time.sleep(1)
         except:
             pass
-
+        
         impedence_controller = subprocess.Popen(['roslaunch', 'serl_franka_controllers', 'impedance.launch',
                                                 f'robot_ip:={FLAGS.robot_ip}', f'load_gripper:={FLAGS.load_gripper}'],
                                                 stdout=subprocess.PIPE)
