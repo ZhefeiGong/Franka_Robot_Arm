@@ -2,15 +2,15 @@
 
 ### 🛠️ Installation
 
-#### Install `libfranka` and `franka_ros`
-build from the ROS repositories
+#### 🔧 Install `libfranka` and `franka_ros`
+* build from the ROS repositories
 ```bash
 sudo apt install ros-noetic-libfranka ros-noetic-franka-ros
 ```
-build from source
+* build from source
 * [libfranka](https://github.com/frankaemika/libfranka/blob/main/README.md)
 * [franka_ros](https://frankaemika.github.io/docs/installation_linux.html#building-the-ros-packages)
-#### Build `serl_franka_controllers`
+#### 🔧 Build `serl_franka_controllers`
 ```bash
 mkdir -p catkin_ws/src
 cd catkin_ws/src
@@ -20,14 +20,14 @@ catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3 --pkg serl_franka_controllers
 cd ..
 source catkin_ws/devel/setup.bash
 ```
-#### Build virtual env
+#### 🔧 Build virtual env
 ```bash
 cd robot_infra
 conda create -n robot_infra python=3.9
 conda activate robot_infra
 pip install -e .
 ```
-#### Check path
+#### 🔧 Check path
 ```bash
 import package
 print(package.__file__)
