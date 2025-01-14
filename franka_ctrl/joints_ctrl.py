@@ -5,6 +5,7 @@
 
 import time
 import rospy
+import subprocess
 import numpy as np
 import geometry_msgs.msg as geom_msg
 from dynamic_reconfigure.client import Client 
@@ -15,24 +16,29 @@ class FrankaJointsController():
 
     def __init__(self):
         super().__init__()
-
-        # rospy.init_node('franka_joints_controller')
-        
         self.ee_pub = rospy.Publisher(
             "/cartesian_impedance_controller/equilibrium_pose", geom_msg.PoseStamped, queue_size=10,
         )
-
         self.reconf_client = Client("/cartesian_impedance_controllerdynamic_reconfigure_compliance_param_node")
     
-    def move(self, pose: list):
-        """Move to a pose: [x, y, z, qx, qy, qz, qw]"""
-        assert len(pose) == 7
+    def move(self, 
+             pose: list, 
+             is_euler: bool=False):
+        """Move to a pose: [x,y,z,qx,qy,qz,qw] or [x,y,z,rx,ry,rz]"""
+        # check
+        assert len(pose) == 7 or (len(pose) == 6 and is_euler), "mismatch pose length"
+        # position
         msg = geom_msg.PoseStamped()
         msg.header.frame_id = "0"
         msg.header.stamp = rospy.Time.now()
         msg.pose.position = geom_msg.Point(pose[0], pose[1], pose[2])
-        # quat = R.from_euler('xyz', [np.pi, 0, np.pi/2]).as_quat()
-        msg.pose.orientation = geom_msg.Quaternion(pose[3], pose[4], pose[5], pose[6])
+        # orientation | [qx, qy, qz, qw]
+        if len(pose)==6 and is_euler:
+            quat = R.from_euler('xyz', [pose[3], pose[4], pose[5]]).as_quat()
+            msg.pose.orientation = geom_msg.Quaternion(quat[0], quat[1], quat[2], quat[3])
+        else:
+            msg.pose.orientation = geom_msg.Quaternion(pose[3], pose[4], pose[5], pose[6])
+        # publish
         self.ee_pub.publish(msg)
 
     def set_conf(self):
@@ -41,61 +47,38 @@ class FrankaJointsController():
             self.reconf_client.update_configuration({"translational_clip_" + direction: 0.005})
             self.reconf_client.update_configuration({"rotational_clip_" + direction: 0.04})
 
-    def reset_joint(self):
-        """Reset joints (through Joint Position Controller)"""
-        # First Stop impedance
-        try:
-            self.stop_impedance()
-            self.clear()
-        except:
-            print("impedance Not Running")
-        time.sleep(3)
-        self.clear()
 
-        # Launch joint controller reset
-        # set rosparm with rospkg
-        # rosparam set /target_joint_positions '[q1, q2, q3, q4, q5, q6, q7]'
-        rospy.set_param("/target_joint_positions", self.reset_joint_target)
+def test():
+    """Test the joints controller through """
+    rospy.init_node('franka_joints_controller')
+    joints_controller = FrankaJointsController()
+    is_euler = True
 
-        self.joint_controller = subprocess.Popen(
-            [
-                "roslaunch",
-                self.ros_pkg_name,
-                "joint.launch",
-                "robot_ip:=" + self.robot_ip,
-                f"load_gripper:={'true' if self.gripper_type == 'Franka' else 'false'}",
-            ],
-            stdout=subprocess.PIPE,
-        )
-        time.sleep(1)
-        print("RUNNING JOINT RESET")
-        self.clear()
+    print('move to initial place')
+    time.sleep(1)
+    pose_start = [0.5, 0, 0.2, np.pi, 0, np.pi/2]
+    joints_controller.move(pose_start, is_euler)
+    
+    # print('set the configuration')
+    # time.sleep(1)
+    # joints_controller.set_conf()
+    
+    print('move to target place')
+    time.sleep(1)
+    for i in range(10):
+        pose = [0.5, 0, 0.2+i*0.02, np.pi, 0, np.pi/2]
+        joints_controller.move(pose, is_euler)
+        time.sleep(0.2)
+    
+    print('back to initial place')
+    time.sleep(1)
+    for i in range(10):
+        pose = [0.5, 0, 0.4-i*0.02, np.pi, 0, np.pi/2]
+        joints_controller.move(pose, is_euler)
+        time.sleep(0.2)
+    
 
-        # Wait until target joint angles are reached
-        count = 0
-        time.sleep(1)
-        while not np.allclose(
-            np.array(self.reset_joint_target) - np.array(self.q),
-            0,
-            atol=1e-2,
-            rtol=1e-2,
-        ):
-            time.sleep(1)
-            count += 1
-            if count > 30:
-                print("joint reset TIMEOUT")
-                break
-
-        # Stop joint controller
-        print("RESET DONE")
-        self.joint_controller.terminate()
-        time.sleep(1)
-        self.clear()
-        print("KILLED JOINT RESET", self.pos)
-
-        # Restart impedece controller
-        self.start_impedance()
-        print("impedance STARTED")
-
+if __name__ == "__main__":
+    test()
 
 

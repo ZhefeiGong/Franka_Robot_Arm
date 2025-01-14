@@ -1,8 +1,3 @@
-#@time: Jan.14th 2025
-#@func: initialize the virtual environment
-#@copyright: 
-# - https://github.com/rail-berkeley/fmb
-
 from setuptools import setup, find_packages
 
 setup(

@@ -32,7 +32,7 @@ def main(_):
         gripper_pub = rospy.Publisher('/gripper_control', String, queue_size=10)  
         rospy.init_node('franka_control_api')
         client = Client("/cartesian_impedance_controllerdynamic_reconfigure_compliance_param_node")
-
+        
         # Reset the arm
         msg = geom_msg.PoseStamped()
         msg.header.frame_id = "0"

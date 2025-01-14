@@ -1,3 +1,8 @@
+#@time: Jan.14th 2025
+#func: test the cartesian impedance controller
+#@copyright: 
+# - https://github.com/rail-berkeley/serl_franka_controllers
+
 import sys
 import rospy
 import numpy as np
@@ -74,7 +79,7 @@ def main(_):
             msg.pose.orientation = geom_msg.Quaternion(quat[0], quat[1], quat[2], quat[3])
             eepub.publish(msg)
             time.sleep(0.1)
-
+        
         input("\033[33m\n \nPress enter to exit the test and stop the controller.\033[0m")
         impedence_controller.terminate()
         roscore.terminate()

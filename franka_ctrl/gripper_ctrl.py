@@ -5,6 +5,7 @@
 # - Zhefei(Jeffrey) Gong
 
 import rospy
+import time
 from franka_gripper.msg import GraspActionGoal, MoveActionGoal
 from sensor_msgs.msg import JointState
 
@@ -12,9 +13,6 @@ from sensor_msgs.msg import JointState
 class FrankaGripperController():
     def __init__(self):
         super().__init__()
-
-        # rospy.init_node('franka_gripper_controller')
-        
         self.grippermovepub = rospy.Publisher(
             "/franka_gripper/move/goal", MoveActionGoal, queue_size=1
         )
@@ -25,7 +23,7 @@ class FrankaGripperController():
     def open(self):
         """Open the gripper"""
         msg = MoveActionGoal()
-        msg.goal.width = 0.09
+        msg.goal.width = 0.09 # 0.09->single-object | 0.075->multi-object
         msg.goal.speed = 0.3
         self.grippermovepub.publish(msg)
     
@@ -45,6 +43,29 @@ class FrankaGripperController():
         msg.goal.width = float(position / (255 * 10))  # width in [0, 0.1]m
         msg.goal.speed = 0.3
         self.grippermovepub.publish(msg)
+
+
+def test():
+    """Test the gripper controller"""
+    rospy.init_node('franka_gripper_controller')
+    gripper_controller = FrankaGripperController()
+    
+    time.sleep(1)
+    print('close')
+    gripper_controller.close()
+    time.sleep(1)
+    print('open')
+    gripper_controller.open()
+    time.sleep(1)
+    print('close to 100')
+    gripper_controller.move(100)
+    time.sleep(1)
+    print('open')
+    gripper_controller.open()
+
+
+if __name__ == "__main__":
+    test()
 
 
 

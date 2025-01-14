@@ -21,6 +21,14 @@ cd ..
 source catkin_ws/devel/setup.bash
 ```
 
+### Build virtual env
+```bash
+cd robot_infra
+conda create -n robot_infra python=3.9
+conda activate robot_infra
+pip install -e .
+```
+
 
 ### Check Path
 ```bash
@@ -31,32 +39,19 @@ print(package.__file__)
 
 ### Run
 
+* initialization
 ```bash
 source /home/franka/jeffrey/miniforge3/bin/activate
 conda activate robot_infra
-cd /home/franka/jeffrey/Franka_Robot_Arm/robot_infra
-
-# python franka_server.py --robot_ip=192.168.3.20
-pytho test.py --robot_ip=192.168.3.20
-
+cd /home/franka/jeffrey/Franka_Robot_Arm
 ```
 
+* run
 ```bash
-curl -X POST http://127.0.0.1:5000/activate_gripper                                 # Activate gripper
-curl -X POST http://127.0.0.1:5000/close_gripper                                    # Close gripper
-curl -X POST http://127.0.0.1:5000/open_gripper                                     # Open gripper
-
-curl -X POST http://127.0.0.1:5000/getpos                                           # Print current end-effector pose
-curl -X POST http://127.0.0.1:5000/getstate
-
-curl -X POST http://127.0.0.1:5000/jointreset                                       # Perform joint reset
-curl -X POST http://127.0.0.1:5000/precision_mode                                   # Change the impedance controller to precision mode
-curl -X POST http://127.0.0.1:5000/compliance_mode                                  # Change the impedance controller to compliance mode
-curl -X POST http://127.0.0.1:5000/stopimp                                          # Stop the impedance controller
-curl -X POST http://127.0.0.1:5000/startimp                                         # Start the impedance controller (**Only run this after stopimp**)
-
+pytho test.py --robot_ip=192.168.3.20
 ```
 
+* close
 ```bash
 killall -9 roscore
 killall -9 rosmaster
