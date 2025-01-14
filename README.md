@@ -3,11 +3,11 @@
 ### 🛠️ Installation
 
 #### 🔧 Install `libfranka` and `franka_ros`
-* build from the ROS repositories
+build from the ROS repositories
 ```bash
 sudo apt install ros-noetic-libfranka ros-noetic-franka-ros
 ```
-* build from source
+build from source
 * [libfranka](https://github.com/frankaemika/libfranka/blob/main/README.md)
 * [franka_ros](https://frankaemika.github.io/docs/installation_linux.html#building-the-ros-packages)
 #### 🔧 Build `serl_franka_controllers`
