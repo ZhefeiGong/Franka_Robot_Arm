@@ -53,3 +53,7 @@ CATKIN_IGNORE
 # build env
 catkin_ws
 
+# local development
+workspace
+
+
