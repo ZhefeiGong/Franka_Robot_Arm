@@ -30,7 +30,6 @@ sudo apt-get update
 sudo apt-get install nvidia-driver-535
 sudo reboot
 
-
 # image check
 dpkg --get-selections | grep linux-image
 uname -a

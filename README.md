@@ -10,6 +10,7 @@ sudo apt install ros-noetic-libfranka ros-noetic-franka-ros
 build from source
 * [libfranka](https://github.com/frankaemika/libfranka/blob/main/README.md)
 * [franka_ros](https://frankaemika.github.io/docs/installation_linux.html#building-the-ros-packages)
+
 #### 🔧 Build `serl_franka_controllers`
 ```bash
 mkdir -p catkin_ws/src
@@ -20,6 +21,7 @@ catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3 --pkg serl_franka_controllers
 cd ..
 source catkin_ws/devel/setup.bash
 ```
+
 #### 🔧 Build virtual env
 ```bash
 cd robot_infra
@@ -27,6 +29,7 @@ conda create -n robot_infra python=3.9
 conda activate robot_infra
 pip install -e .
 ```
+
 #### 🔧 Check path
 ```bash
 import package
@@ -55,7 +58,15 @@ killall -9 rosmaster
 * [fmb](https://github.com/rail-berkeley/fmb/tree/main)
 * [serl_franka_controllers](https://github.com/rail-berkeley/serl_franka_controllers)
 * [serl](https://github.com/rail-berkeley/serl)
-* [hi-serl](https://github.com/rail-berkeley/hil-serl)
+* [hil-serl](https://github.com/rail-berkeley/hil-serl)
 
+
+
+### 🍀 Ubuntu Install
+
+```bash
+
+
+```
 
 
