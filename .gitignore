@@ -56,4 +56,6 @@ catkin_ws
 # local development
 workspace
 
+# local python install
+*.egg-info
 

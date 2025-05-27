@@ -5,6 +5,7 @@ bash Miniforge3-$(uname)-$(uname -m).sh
 
 ### activate miniforge
 source /home/franka/jeffrey/miniforge3/bin/activate
+source /home/Jeffrey/miniforge3/bin/activate
 
 ### add ssh key 
 eval "$(ssh-agent -s)"
@@ -39,5 +40,24 @@ uname -r
 reboot
 linux-image-5.15.0-139-generic # for nvidia
 linux-image-5.15.76-rt53 # for franka
+
+
+### libfranka and franka_ros
+dpkg -l | grep libfranka
+dpkg -l | grep franka_ros
+ldconfig -p | grep libfranka
+ros-noetic-libfranka 
+ros-noetic-franka-ros
+sudo apt-get remove "*franka*"
+apt-cache policy ros-noetic-libfranka
+sudo apt-get install ros-noetic-libfranka=0.9.2-1focal.20220831.191513
+catkin_make -DCMAKE_BUILD_TYPE=Release -DFranka_DIR:PATH=/home/user1/Jeffrey/Franka_Robot_Arm/catkin_ws/src/libfranka/build
+
+source /home/user1/Jeffrey/miniforge3/bin/activate
+conda activate robot_infra
+cd /home/user1/Jeffrey/Franka_Robot_Arm
+source catkin_ws/devel/setup.bash
+python franka_ctrl/test.py --robot_ip=192.168.3.20
+
 
 

@@ -35,7 +35,7 @@ rosrun turtlesim turtle_teleop_key
 ```
 
 ### 🔧 Install `libfranka` and `franka_ros`
-build from the ROS repositories
+build from the ROS repositories, and please refer to [here](https://www.franka.io/docs/compatibility.html) to check the version-match between the franka system and the softwares'
 ```bash
 sudo apt-get update
 sudo apt-get install ros-noetic-libfranka ros-noetic-franka-ros
@@ -56,6 +56,15 @@ source catkin_ws/devel/setup.bash
 ```
 
 ### 🔧 Build virtual env
+build miniforge if you don't have it
+```bash
+cd /path/you/want/to/locate/
+curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+bash Miniforge3-$(uname)-$(uname -m).sh
+source /path/to/your/miniforge3/bin/activate
+```
+
+build the corresponding environment
 ```bash
 cd robot_infra
 conda create -n robot_infra python=3.9
@@ -63,10 +72,11 @@ conda activate robot_infra
 pip install -e .
 ```
 
-### 🔧 Check path
+check the path of each package in the env
 ```bash
-import package
-print(package.__file__)
+python
+import _package_to_test_
+print(_package_to_test_.__file__)
 ```
 
 
@@ -79,7 +89,8 @@ cd /home/franka/jeffrey/Franka_Robot_Arm
 ```
 * run
 ```bash
-pytho test.py --robot_ip=192.168.3.20
+source catkin_ws/devel/setup.bash
+python franka_ctrl/test.py --robot_ip=192.168.3.20
 ```
 * close
 ```bash
@@ -114,7 +125,7 @@ sudo systemctl start spacenavd
 
 ### 🔧 Download Source 
 
-download the source from [here](https://www.kernel.org/pub/linux/kernel/)
+download the source from [here](https://www.kernel.org/pub/linux/kernel/) or [here](https://www.franka.cn/FCI/installation_linux.html#setting-up-the-real-time-kernel)
 ```bash
 # build foler
 mkdir franka_env
