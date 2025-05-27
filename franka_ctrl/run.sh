@@ -7,9 +7,9 @@
 ###################################################################################################################
 
 ### Get into the folder
-source /home/franka/jeffrey/miniforge3/bin/activate
+source /path/to/miniforge3/bin/activate
 conda activate robot_infra
-cd /home/franka/jeffrey/Franka_Robot_Arm
+cd /path/to/Franka_Robot_Arm
 
 ### Build a ROS node
 roscore
@@ -30,13 +30,13 @@ roslaunch franka_gripper franka_gripper.launch  robot_ip:=192.168.3.20
 ###################################################################################################################
 
 ### Test gripper controller
-python /home/franka/jeffrey/Franka_Robot_Arm/franka_ctrl/gripper_ctrl.py
+python franka_ctrl/gripper_ctrl.py
 
 ### Test cartesian impedance controller
-python /home/franka/jeffrey/Franka_Robot_Arm/franka_ctrl/joints_ctrl.py
+python franka_ctrl/joints_ctrl.py
 
 ### Test franka state listener
-python /home/franka/jeffrey/Franka_Robot_Arm/franka_ctrl/state_lstn.py
+python franka_ctrl/state_lstn.py
 
 ###################################################################################################################
 

@@ -17,47 +17,37 @@ git config user.name
 git config user.email
 git config --list
 
-### ubuntu -> image & driver install
-
-# driver check
+### ubuntu driver check
 lspci | grep -i vga
 ls /usr/src | grep nvidia
 lsmod | grep nvidia
 
-# driver install
+### ubuntu driver install
 ubuntu-drivers devices
 sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt-get update
 sudo apt-get install nvidia-driver-535
 sudo reboot
 
-# image check
+### image check
 dpkg --get-selections | grep linux-image
 uname -a
 uname -r
 
-# 'Shift'
+### 'Shift' -> get into initial ubuntu panel -> to exchange the following kernels
 reboot
 linux-image-5.15.0-139-generic # for nvidia
 linux-image-5.15.76-rt53 # for franka
 
-
-### libfranka and franka_ros
+### libfranka and franka_ros check
 dpkg -l | grep libfranka
 dpkg -l | grep franka_ros
 ldconfig -p | grep libfranka
-ros-noetic-libfranka 
+ros-noetic-libfranka
 ros-noetic-franka-ros
 sudo apt-get remove "*franka*"
 apt-cache policy ros-noetic-libfranka
-sudo apt-get install ros-noetic-libfranka=0.9.2-1focal.20220831.191513
-catkin_make -DCMAKE_BUILD_TYPE=Release -DFranka_DIR:PATH=/home/user1/Jeffrey/Franka_Robot_Arm/catkin_ws/src/libfranka/build
 
-source /home/user1/Jeffrey/miniforge3/bin/activate
-conda activate robot_infra
-cd /home/user1/Jeffrey/Franka_Robot_Arm
-source catkin_ws/devel/setup.bash
-python franka_ctrl/test.py --robot_ip=192.168.3.20
 
 
 

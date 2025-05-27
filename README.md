@@ -112,7 +112,7 @@ sudo systemctl start spacenavd
 ```
 
 
-### 📖 Reference
+## 📖 Reference
 * [fmb](https://github.com/rail-berkeley/fmb/tree/main)
 * [serl_franka_controllers](https://github.com/rail-berkeley/serl_franka_controllers)
 * [serl](https://github.com/rail-berkeley/serl)
@@ -121,7 +121,6 @@ sudo systemctl start spacenavd
 
 
 ## 🍀 Ubuntu Install w/ `real-time` Kernel
-
 
 ### 🔧 Download Source 
 
@@ -140,7 +139,6 @@ gunzip patch-5.15.76-rt53.patch.gz
 cd linux-5.15.76
 patch -p1 < ../patch-5.15.76-rt53.patch
 ```
-
 
 ### 🔧 Build Source
 
@@ -174,7 +172,6 @@ begin to build kernel locally
 fakeroot make -j24 deb-pkg
 ```
 
-
 ### 🔧 Install Source
 
 finally, install the built kernel with patch
@@ -185,6 +182,27 @@ sudo dpkg -i ../linux-headers-5.15.76-rt53*.deb ../linux-image-5.15.76-rt53*.deb
 sudo reboot
 # check
 uname -msr
+```
+
+### 🔧 Add realtime permission
+
+build a group for realtime command
+```bash
+sudo addgroup realtime
+sudo usermod -a -G realtime $(whoami)
+```
+add the following limits into `/etc/security/limits.conf`, which is set for realtime group
+```bash
+@realtime soft rtprio 99
+@realtime soft priority 99
+@realtime soft memlock 102400
+@realtime hard rtprio 99
+@realtime hard priority 99
+@realtime hard memlock 102400
+```
+finally, re-start your computer to apply it
+```bash
+reboot
 ```
 
 
