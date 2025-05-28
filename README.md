@@ -101,8 +101,8 @@ killall -9 rosmaster
 
 ## 🛠️ Others Installation
 
-### SpaceMouse-3Dconnexion
-install the packages for SpaceMouse
+### 🖱️ SpaceMouse
+install the packages for SpaceMouse (3Dconnexion)
 ```bash
 pip install numpy termcolor atomics scipy
 pip install git+https://github.com/cheng-chi/spnav
