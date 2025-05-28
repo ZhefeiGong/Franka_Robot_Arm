@@ -3,7 +3,7 @@
 
 ## 🛠️ Franka Installation
 
-### 🔧 Install Noetic for ubuntu20.04
+### 🔧 Install Noetic for Ubuntu 20.04
 set download source
 ```bash
 sudo sh -c '. /etc/lsb-release && echo "deb http://mirrors.ustc.edu.cn/ros/ubuntu/ `lsb_release -cs` main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -111,13 +111,6 @@ sudo systemctl start spacenavd
 ```
 
 
-## 📖 Reference
-* [fmb](https://github.com/rail-berkeley/fmb/tree/main)
-* [serl_franka_controllers](https://github.com/rail-berkeley/serl_franka_controllers)
-* [serl](https://github.com/rail-berkeley/serl)
-* [hil-serl](https://github.com/rail-berkeley/hil-serl)
-
-
 ## 🍀 Ubuntu Install w/ `real-time` Kernel
 
 ### 🔧 Download Source 
@@ -203,8 +196,17 @@ reboot
 ## 🤔 TroubleShooting
 
 * `libfranka： Move command aborted by reflex! ["communication_constraints_violation"] control_command_success_rate: 0,78`
-the problem mainly comes from the communation delay between the PC and the franka, and you can check the following reasons: 1) overload PC (limited CPU recourses) 2) unsuitable network card 3) inactivated real-time kernel 3) network issues from cable
+the problem mainly comes from the communication delay between the PC and the franka, and you can check the following reasons: 1) overload PC (limited CPU recourses) 2) unsuitable network card 3) inactivated real-time kernel 3) network issues from cable
 
 * `Robot error: joint limit reached`
-the error comes from the abnormal recovery of franka arm, which is unkown about the reason, and what we can do is move the robot arm several times and wait a moment
+the error comes from the abnormal recovery of franka arm, which is unknown about the reason, and what we can do is move the robot arm several times and wait a moment
+
+
+## 📖 Reference
+* [fmb](https://github.com/rail-berkeley/fmb/tree/main)
+* [serl_franka_controllers](https://github.com/rail-berkeley/serl_franka_controllers)
+* [serl](https://github.com/rail-berkeley/serl)
+* [hil-serl](https://github.com/rail-berkeley/hil-serl)
+
+
 
