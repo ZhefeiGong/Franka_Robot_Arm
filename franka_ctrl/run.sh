@@ -10,6 +10,9 @@
 source /path/to/miniforge3/bin/activate
 conda activate robot_infra
 cd /path/to/Franka_Robot_Arm
+source catkin_ws/devel/setup.bash
+export PYTHONPATH=$PYTHONPATH:/path/to/Franka_Robot_Arm/
+clear
 
 ### Build a ROS node
 roscore
@@ -26,6 +29,8 @@ roslaunch serl_franka_controllers joint.launch robot_ip:=192.168.3.20 load_gripp
 
 ### Activate the gripper of the franka
 roslaunch franka_gripper franka_gripper.launch  robot_ip:=192.168.3.20
+rostopic pub /franka_gripper/move franka_gripper/MoveActionGoal "{goal: {width: 0.08, speed: 0.05}}" # seem to activate the gripper
+rostopic pub /franka_gripper/move franka_gripper/MoveActionGoal "{goal: {width: 0.8, speed: 0.05}}" # seem to activate the gripper
 
 ###################################################################################################################
 

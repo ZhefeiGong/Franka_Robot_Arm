@@ -53,7 +53,7 @@ def test():
     rospy.init_node('franka_joints_controller')
     joints_controller = FrankaJointsController()
     is_euler = True
-
+    
     print('move to initial place')
     time.sleep(1)
     pose_start = [0.5, 0, 0.2, np.pi, 0, np.pi/2]

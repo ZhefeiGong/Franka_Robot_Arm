@@ -102,7 +102,6 @@ killall -9 rosmaster
 ## 🛠️ Others Installation
 
 ### SpaceMouse-3Dconnexion
-
 install the packages for SpaceMouse
 ```bash
 pip install numpy termcolor atomics scipy
@@ -119,11 +118,9 @@ sudo systemctl start spacenavd
 * [hil-serl](https://github.com/rail-berkeley/hil-serl)
 
 
-
 ## 🍀 Ubuntu Install w/ `real-time` Kernel
 
 ### 🔧 Download Source 
-
 download the source from [here](https://www.kernel.org/pub/linux/kernel/) or [here](https://www.franka.cn/FCI/installation_linux.html#setting-up-the-real-time-kernel)
 ```bash
 # build foler
@@ -141,7 +138,6 @@ patch -p1 < ../patch-5.15.76-rt53.patch
 ```
 
 ### 🔧 Build Source
-
 build the kernel from now on (refer to [here](https://blog.csdn.net/tiboyang/article/details/127700249))
 ```bash
 # download neccessary packages
@@ -173,7 +169,6 @@ fakeroot make -j24 deb-pkg
 ```
 
 ### 🔧 Install Source
-
 finally, install the built kernel with patch
 ```bash
 # install
@@ -185,7 +180,6 @@ uname -msr
 ```
 
 ### 🔧 Add realtime permission
-
 build a group for realtime command
 ```bash
 sudo addgroup realtime
@@ -206,4 +200,11 @@ reboot
 ```
 
 
+## 🤔 TroubleShooting
+
+* `libfranka： Move command aborted by reflex! ["communication_constraints_violation"] control_command_success_rate: 0,78`
+the problem mainly comes from the communation delay between the PC and the franka, and you can check the following reasons: 1) overload PC (limited CPU recourses) 2) unsuitable network card 3) inactivated real-time kernel 3) network issues from cable
+
+* `Robot error: joint limit reached`
+the error comes from the abnormal recovery of franka arm, which is unkown about the reason, and what we can do is move the robot arm several times and wait a moment
 

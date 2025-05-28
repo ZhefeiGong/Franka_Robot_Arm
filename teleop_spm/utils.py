@@ -2,7 +2,6 @@
 
 import cv2
 import numpy as np
-from PIL import Image
 from scipy.spatial.transform import Rotation as R
 
 def axis_to_euler(axis_angle):

@@ -89,17 +89,17 @@ def test():
     rospy.init_node('franka_state_listener')
     state_listener = FrankaStateListener()
     
-    time.sleep(1)
+    time.sleep(2)
     print('------ cartesian pose ------')
     print(state_listener.get_cartesian_pose())
+    time.sleep(2)
     print('------ joint pose ------')
-    time.sleep(1)
     print(state_listener.get_joint_pose())
+    time.sleep(2)
     print('------ franka state ------')
-    time.sleep(1)
     print(state_listener.get_state())
     
-
+    
 if __name__ == "__main__":
     test()
 
