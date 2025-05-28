@@ -114,7 +114,7 @@ sudo systemctl start spacenavd
 ## 🍀 Ubuntu Install w/ `real-time` Kernel
 
 ### 🔧 Download Source 
-download the source from [here](https://www.kernel.org/pub/linux/kernel/) or [here](https://www.franka.cn/FCI/installation_linux.html#setting-up-the-real-time-kernel)
+download the source from [here](https://www.kernel.org/pub/linux/kernel/)
 ```bash
 # build foler
 mkdir franka_env
@@ -131,7 +131,7 @@ patch -p1 < ../patch-5.15.76-rt53.patch
 ```
 
 ### 🔧 Build Source
-build the kernel from now on (refer to [here](https://blog.csdn.net/tiboyang/article/details/127700249))
+build the kernel from now on (refer to [here](https://blog.csdn.net/tiboyang/article/details/127700249) or [here](https://www.franka.cn/FCI/installation_linux.html#setting-up-the-real-time-kernel))
 ```bash
 # download neccessary packages
 sudo apt-get install build-essential bc curl ca-certificates gnupg2 libssl-dev lsb-release libelf-dev bison flex dwarves zstd libncurses-dev
