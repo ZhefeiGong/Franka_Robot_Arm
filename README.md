@@ -195,11 +195,11 @@ reboot
 
 ## 🤔 TroubleShooting
 
-* `libfranka： Move command aborted by reflex! ["communication_constraints_violation"] control_command_success_rate: 0,78`
+🔪 `libfranka： Move command aborted by reflex! ["communication_constraints_violation"] control_command_success_rate: 0,78`
 
 the problem mainly comes from the communication delay between the PC and the franka, and you can check the following reasons: 1) overloaded PC (limited CPU resources) 2) unsuitable network card 3) inactive real-time kernel 3) network issues from cable
 
-* `Robot error: joint limit reached`
+🔪 `Robot error: joint limit reached`
 
 the error seems to result from an abnormal recovery process of the Franka arm, with the underlying cause still unclear. As a temporary solution, we manually move the arm several times and wait briefly to allow for recovery.
 
