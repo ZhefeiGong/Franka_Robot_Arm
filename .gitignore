@@ -60,5 +60,6 @@ workspace
 *.egg-info
 
 # local record
-local_record.sh
+local.*
+
 
